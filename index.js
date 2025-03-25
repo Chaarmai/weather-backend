@@ -61,3 +61,4 @@ app.get('/api/weather-alerts', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
