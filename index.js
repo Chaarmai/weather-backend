@@ -60,5 +60,11 @@ app.get('/api/weather-alerts', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  const fs = require('fs');
+const path = require('path')
+const fs = require('fs');
+const path = require('path');
+;
+
 });
 
