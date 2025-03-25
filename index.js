@@ -65,6 +65,35 @@ const path = require('path')
 const fs = require('fs');
 const path = require('path');
 ;
+app.post('/api/subscribe', express.json(), (req, res) => {
+  const { email, phone, zipCodes } = req.body;
+
+  if (!email && !phone) {
+    return res.status(400).json({ error: 'Email or phone is required' });
+  }
+
+  const entry = {
+    email,
+    phone,
+    zipCodes,
+    timestamp: new Date().toISOString()
+  };
+
+  const dataPath = path.join(__dirname, 'subscribers.json');
+  let currentData = [];
+
+  if (fs.existsSync(dataPath)) {
+    const raw = fs.readFileSync(dataPath);
+    currentData = JSON.parse(raw);
+  }
+
+  currentData.push(entry);
+  fs.writeFileSync(dataPath, JSON.stringify(currentData, null, 2));
+
+  console.log('✅ New subscriber saved:', entry);
+  res.json({ success: true, message: 'Subscription saved!' });
+});
+
 
 });
 
